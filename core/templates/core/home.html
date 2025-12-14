@@ -1,0 +1,132 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<section class="hero" id="top">
+    <div class="hero-copy">
+        <p class="eyebrow">Harvard–Yale–MIT–Stanford caliber rigor</p>
+        <h1>Hypothesis-led racial equity analysis built for public trust.</h1>
+        <p class="lede">
+            Hyper-focus on one hypothesis at a time, combine causal and inferential tools,
+            and deliver findings a Texas senator would be proud to champion.
+        </p>
+        <div class="cta-row">
+            <a class="btn primary" href="#methods">View 10+ analysis playbooks</a>
+            <a class="btn ghost" href="#workflow">See the disciplined workflow</a>
+        </div>
+        <div class="pillars">
+            {% for pillar in pillars %}
+                <span class="pill">{{ pillar }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="hero-panel" id="hypothesis">
+        <div class="panel-head">
+            <span class="badge">Active hypothesis</span>
+            <span class="status-dot"></span>
+        </div>
+        <h3>{{ active_hypothesis.title }}</h3>
+        <p class="muted">{{ active_hypothesis.why }}</p>
+        <dl class="meta">
+            <div>
+                <dt>Estimand</dt>
+                <dd>{{ active_hypothesis.estimand }}</dd>
+            </div>
+            <div>
+                <dt>Unit</dt>
+                <dd>{{ active_hypothesis.unit }}</dd>
+            </div>
+        </dl>
+        <div class="guardrails">
+            <h4>Guardrails before analysis</h4>
+            <ul>
+                {% for guardrail in active_hypothesis.guardrails %}
+                    <li>{{ guardrail }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section twin" id="workflow">
+    <div class="panel">
+        <h2>Methodology for one hypothesis at a time</h2>
+        <p class="muted">
+            A disciplined, pre-registered path that blends causal inference, business statistics,
+            and machine learning without losing clarity or kindness.
+        </p>
+        <ol class="workflow-list">
+            {% for step in workflow_steps %}
+                <li>{{ step }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+    <div class="panel focus-panel">
+        <h3>Focus check</h3>
+        <p class="muted">Everything else waits. We execute one hypothesis end-to-end before pivoting.</p>
+        <ul class="focus-points">
+            <li><strong>Entry criteria:</strong> defined estimand, data owners, and privacy sign-off.</li>
+            <li><strong>Exit criteria:</strong> effect size + CI, sensitivity checks, policy-ready summary.</li>
+            <li><strong>Ethics lens:</strong> who is helped, who could be harmed, what mitigations exist.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="section methods" id="methods">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Analysis library</p>
+            <h2>10+ evidence playbooks across statistics and ML</h2>
+            <p class="muted">From descriptive accountability to causal claims and production-grade models.</p>
+        </div>
+        <div class="legend">
+            <span class="legend-chip stats">Business &amp; inference</span>
+            <span class="legend-chip causal">Causal</span>
+            <span class="legend-chip ml">ML</span>
+            <span class="legend-chip monitor">Monitoring</span>
+        </div>
+    </div>
+    <div class="method-grid">
+        {% for method in analysis_methods %}
+            <article class="method-card">
+                <div class="method-top">
+                    <span class="badge subtle">{{ method.category }}</span>
+                    <h3>{{ method.name }}</h3>
+                    <p class="muted">{{ method.question }}</p>
+                </div>
+                <div class="method-body">
+                    <h4>Approach</h4>
+                    <p>{{ method.approach }}</p>
+                    <h4>Inputs</h4>
+                    <p class="muted">{{ method.inputs }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section governance" id="governance">
+    <div class="panel">
+        <h2>Governance &amp; safety</h2>
+        <p class="muted">Designed for transparency, with controls a public oversight body can review.</p>
+        <ul class="governance-list">
+            <li><strong>Data minimization:</strong> no raw PII in notebooks; hashed ids; column-level access.</li>
+            <li><strong>Reproducibility:</strong> scripted pipelines, documented assumptions, clear audit trail.</li>
+            <li><strong>Fairness posture:</strong> parity, equality of opportunity, and benefit-harm framing.</li>
+            <li><strong>Stakeholder-ready:</strong> plain-language summaries plus technical appendix for staffers.</li>
+            <li><strong>Secure by default:</strong> HTTPS, secure cookies, HSTS, and minimal secret surface area.</li>
+        </ul>
+    </div>
+    <div class="panel">
+        <h3>Deployment notes (Render)</h3>
+        <ul class="deploy-list">
+            <li>Environment driven: <code>DJANGO_SECRET_KEY</code>, <code>DJANGO_ALLOWED_HOSTS</code>, <code>DATABASE_URL</code>.</li>
+            <li>Static assets via WhiteNoise; <code>gunicorn municipal_site.wsgi</code> entrypoint.</li>
+            <li>Use Postgres on Render; SSL enforced when <code>DEBUG</code> is false.</li>
+            <li>Health: enable logs and add uptime checks on <code>/</code> route.</li>
+        </ul>
+        <div class="callout">
+            Built for accountability: every analysis path above can be tracked, validated, and explained.
+        </div>
+    </div>
+</section>
+{% endblock %}

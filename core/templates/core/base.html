@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hypothesis-led racial equity analytics with transparent, accountable methodology.">
+    <title>Municipal Equity Lab</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+    <header class="site-nav">
+        <div class="nav-brand">Municipal Equity Lab</div>
+        <nav class="nav-links">
+            <a href="#hypothesis">Hypothesis</a>
+            <a href="#workflow">Methodology</a>
+            <a href="#methods">Analysis Methods</a>
+            <a href="#governance">Governance</a>
+        </nav>
+        <div class="nav-badge">Safe &amp; Secure</div>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <p>Built for accountability, transparency, and a culture of respect. Ready for Render deployment.</p>
+    </footer>
+</body>
+</html>
