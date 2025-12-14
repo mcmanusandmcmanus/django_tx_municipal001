@@ -18,9 +18,14 @@ Environment variables (see `.env.example`):
 ## Deployment (Render)
 - Create a Web Service pointing to this repo.
 - Build command: `pip install -r requirements.txt`
-- Start command: `gunicorn municipal_site.wsgi --log-file -`
+- Start command: `gunicorn municipal_site.wsgi:application --log-file -`
 - Add env vars above; set `DATABASE_URL` from the Render Postgres add-on.
 - Static files served by WhiteNoise; no extra CDN config required.
+
+### Blueprint option (recommended)
+This repo includes `render.yaml` for one-click provisioning (web + Postgres).
+- In Render: **New** → **Blueprint** → select this repo → apply.
+- Update `DJANGO_ALLOWED_HOSTS` and `DJANGO_CSRF_TRUSTED_ORIGINS` if your Render service name differs.
 
 ## What’s inside
 - Security-forward Django settings (HSTS, secure cookies, WhiteNoise, env-driven secrets).

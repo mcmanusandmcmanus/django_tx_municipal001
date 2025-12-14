@@ -1,0 +1,25 @@
+databases:
+  - name: municipal-equity-db
+    plan: free
+
+services:
+  - type: web
+    name: django-tx-municipal001
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    preDeployCommand: python manage.py migrate
+    startCommand: gunicorn municipal_site.wsgi:application --log-file -
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: django-tx-municipal001.onrender.com
+      - key: DJANGO_CSRF_TRUSTED_ORIGINS
+        value: https://django-tx-municipal001.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: municipal-equity-db
+          property: connectionString
